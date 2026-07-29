@@ -17,7 +17,9 @@ import {
   WalletCards,
   Zap,
 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 import Image from "next/image";
+import { useState } from "react";
 const features = [
   {
     icon: Brain,
@@ -93,6 +95,34 @@ const steps = [
 ];
 
 export default function Home() {
+  const [email, setEmail] = useState("");
+const [loading, setLoading] = useState(false);
+async function handleWaitlistSubmit(
+  event: React.FormEvent<HTMLFormElement>
+) {
+  event.preventDefault();
+
+  const cleanEmail = email.trim().toLowerCase();
+
+  if (!cleanEmail) return;
+
+  setLoading(true);
+
+  const { error } = await supabase
+    .from("waitlist")
+    .insert([{ email: cleanEmail }]);
+
+  setLoading(false);
+
+  if (error) {
+    console.error(error);
+    alert("Something went wrong. Please try again.");
+    return;
+  }
+
+  setEmail("");
+  alert("You're on the list. Welcome to Vrebi ✦");
+}
   return (
     <main className="min-h-screen overflow-hidden bg-[#07080c] text-white">
       <div className="pointer-events-none fixed inset-0">
@@ -382,20 +412,22 @@ export default function Home() {
           </p>
 
           <form
-            onSubmit={(event) => event.preventDefault()}
+            onSubmit={handleWaitlistSubmit}
             className="mx-auto mt-10 flex max-w-xl flex-col gap-3 rounded-2xl border border-white/10 bg-black/30 p-2 sm:flex-row"
           >
             <input
-              type="email"
-              required
-              placeholder="you@example.com"
-              className="min-h-14 flex-1 bg-transparent px-4 text-white outline-none placeholder:text-zinc-600"
-            />
+  type="email"
+  required
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  placeholder="you@example.com"
+  className="min-h-14 flex-1 bg-transparent px-4 text-white ..."
+/>
             <button
               type="submit"
               className="min-h-14 rounded-xl bg-white px-6 font-bold text-black transition hover:scale-[1.02]"
             >
-              Join the waitlist
+              {loading ? "Joining..." : "Join waitlist"}
             </button>
           </form>
         </div>

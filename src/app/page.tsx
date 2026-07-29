@@ -97,6 +97,7 @@ const steps = [
 export default function Home() {
   const [email, setEmail] = useState("");
 const [loading, setLoading] = useState(false);
+const [joined, setJoined] = useState(false);
 async function handleWaitlistSubmit(
   event: React.FormEvent<HTMLFormElement>
 ) {
@@ -116,12 +117,14 @@ async function handleWaitlistSubmit(
 
   if (error) {
     console.error(error);
-    alert("Something went wrong. Please try again.");
     return;
   }
 
   setEmail("");
-  alert("You're on the list. Welcome to Vrebi ✦");
+  setJoined(true);
+  setTimeout(() => {
+  setJoined(false);
+}, 4000);
 }
   return (
     <main className="min-h-screen overflow-hidden bg-[#07080c] text-white">
@@ -430,6 +433,11 @@ async function handleWaitlistSubmit(
               {loading ? "Joining..." : "Join waitlist"}
             </button>
           </form>
+                {joined && (
+  <p className="mt-4 text-center text-sm font-medium text-emerald-400">
+    ✨ You're on the list. Welcome to Vrebi.
+  </p>
+)}
         </div>
       </section>
 

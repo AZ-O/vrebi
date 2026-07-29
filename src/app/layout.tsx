@@ -12,12 +12,39 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
+export const metadata = {
+  metadataBase: new URL("https://vrebi.com"),
+
   title: "Vrebi",
   description: "Your AI Life Operating System",
-icons: {
-  icon: "/vrebi-icon.png",
-},
+
+  icons: {
+    icon: "/vrebi-icon.png",
+  },
+
+  openGraph: {
+    title: "Vrebi",
+    description: "Your AI Life Operating System",
+    url: "https://vrebi.com",
+    siteName: "Vrebi",
+    images: [
+      {
+        url: "/vrebi-social.png",
+        width: 1200,
+        height: 630,
+        alt: "Vrebi",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Vrebi",
+    description: "Your AI Life Operating System",
+    images: ["/vrebi-social.png"],
+  },
 };
 
 export default function RootLayout({

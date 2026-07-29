@@ -17,7 +17,7 @@ import {
   WalletCards,
   Zap,
 } from "lucide-react";
-
+import Image from "next/image";
 const features = [
   {
     icon: Brain,
@@ -102,12 +102,15 @@ export default function Home() {
 
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-[#07080c]/70 backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-          <a href="#" className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-400 to-cyan-300 font-black text-black">
-              V
-            </span>
-            <span className="text-xl font-bold tracking-tight">Vrebi</span>
-          </a>
+        <a href="#" className="flex items-center">
+  <Image
+    src="/vrebi-logo.png"
+    alt="Vrebi"
+    width={150}
+    height={45}
+    priority
+  />
+</a>
 
           <div className="hidden items-center gap-8 text-sm text-zinc-400 md:flex">
             <a href="#vision" className="transition hover:text-white">
